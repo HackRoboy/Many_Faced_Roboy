@@ -19,6 +19,9 @@ class RUpdate:
         self.type = idict["type"]
         self.data = idict["data"]
 
+def make_rupdate(utype, data):
+    return RUpdate({"type":utype, "data":data})
+
 class RUpdates:
     def __init__(self, idict):
         self.ok = idict["ok"]
@@ -31,11 +34,15 @@ def send_updates():
     updates = RUpdates(request.get_json())
     if not updates.ok:
         return "update_not_ok"
-    for update in updates.updates:
+    process_updates(updates.updates)
+    return "ok"
+
+
+def process_updates(updates):
+    for update in updates:
         the_game.dm.set_data(update.type, update.data)
         log.info("UPDATE: {name}:{data}".format(name = update.type, data = json.dumps(update.data)))
     return "ok"
-
 
 
 @app.route("/logs")
