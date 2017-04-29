@@ -40,6 +40,9 @@ def send_updates():
 
 def process_updates(updates):
     for update in updates:
+        if update.type == "focus" and data["val"] = True:
+            roboy_interface.roboy_says("I used to be an adventurer like you.")
+        
         the_game.dm.set_data(update.type, update.data)
         log.info("UPDATE: {name}:{data}".format(name = update.type, data = json.dumps(update.data)))
     return "ok"

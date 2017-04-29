@@ -7,6 +7,7 @@ import time
 import flaskapp
 
 def roboy_says(text):
+	log.info("ROBOYSAY: " + text)
 	return self.subprocess.check_output(["./bashs/speech_syn.sh " + text], shell=True)
 
 def roboy_emote(emote):
@@ -29,7 +30,7 @@ def check_face():
 	while True:
 		nface_in = "True" in roboy_face_in_field()
 		if nface_in != face_in:
-			flaskapp.process_updates([flaskapp.make_rupdate("focus", nface_in)])
+			flaskapp.process_updates([flaskapp.make_rupdate("fo5cus", {"val":nface_in})])
 		face_in = nface_in
 		time.sleep(1)
 

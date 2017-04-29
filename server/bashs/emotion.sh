@@ -1,6 +1,7 @@
 #!/bin/bash
 
 source /opt/ros/kinetic/setup.bash
+source ~/catkin_ws/devel/setup.bash
 ROBOY_IP="10.183.113.58"
 text=$1
 
