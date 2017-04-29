@@ -42,6 +42,7 @@ def process_updates(updates):
     for update in updates:
         if update.type == "focus" and update.data["val"] == True:
             roboy_interface.roboy_say("I used to be an adventurer like you.")
+            #roboy_interface.roboy_say("Firtina pellar inleeler yeaneethen yuksellejeck")
         
         telegramapp.the_game.dm.set_data(update.type, update.data)
         log.info("UPDATE: {name}:{data}".format(name = update.type, data = json.dumps(update.data)))

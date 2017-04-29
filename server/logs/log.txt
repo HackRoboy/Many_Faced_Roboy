@@ -1,0 +1,8 @@
+2017-04-29 23:25:32,266 : ROBOYSAY: Firtina pellar inleeler yeaneethen yuksellejeck
+2017-04-29 23:25:36,870 : UPDATE: focus:{"val": true}
+2017-04-29 23:25:44,960 : UPDATE: focus:{"val": false}
+2017-04-29 23:26:15,561 : ROBOYSAY: Firtina pellar inleeler yeaneethen yuksellejeck
+2017-04-29 23:26:19,177 : UPDATE: focus:{"val": true}
+2017-04-29 23:26:56,387 : UPDATE: focus:{"val": false}
+2017-04-29 23:27:03,914 : ROBOYSAY: Firtina pellar inleeler yeaneethen yuksellejeck
+2017-04-29 23:27:07,447 : UPDATE: focus:{"val": true}
