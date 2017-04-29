@@ -1,5 +1,6 @@
 #!/bin/bash
 
+source /opt/ros/kinetic/setup.bash
 Roboy_IP = "10.183.113.58"
 text = $1
 export ROS_IP="$ROBOY_IP" # make sure you are on the same network as Roboy
