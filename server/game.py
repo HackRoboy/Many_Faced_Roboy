@@ -63,9 +63,11 @@ class Game:
 			else:
 				init_state = self.init_state
 		self.player_states[player] = init_state
+		self.handle_action(player, "init")
 		return True
 	
 	def set_player_state(self, player:int, state:int):
+		self.handle_action(player, "leave")
 		self.player_states[player] = state
 		self.handle_action(player, "init")
 		self.update_single(player)

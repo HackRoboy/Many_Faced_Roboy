@@ -11,4 +11,4 @@ def make_update(utype, data):
     return {"type":utype, "data":data}
 
 if __name__ == '__main__':
-    send_updates([make_update("lighthouse", {"x":5, "y":6, "z":7})])
+    send_updates([make_update("ball", {"x":5, "y":5, "z":5})])

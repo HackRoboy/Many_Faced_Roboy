@@ -5,7 +5,7 @@ import roboy_interface
 
 def main():
     telegramapp.main()
-    flaskapp.app.run(debug=True)
+    flaskapp.app.run()
     roboy_interface.main()
 
 if __name__ == '__main__':

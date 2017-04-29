@@ -6,15 +6,16 @@ import threading
 import time
 import flaskapp
 
-def roboy_says(text):
+def roboy_say(text):
 	log.info("ROBOYSAY: " + text)
-	return self.subprocess.check_output(["./bashs/speech_syn.sh " + text], shell=True)
+	return
+	return subprocess.check_output(["./bashs/speech_syn.sh " + text], shell=True)
 
 def roboy_emote(emote):
-	return self.subprocess.check_output(["./bashs/emote.sh " + emote], shell=True)
+	return subprocess.check_output(["./bashs/emote.sh " + emote], shell=True)
 
 def roboy_receive_speech():
-	return self.subprocess.check_output(["./bashs/speech_rec.sh "], shell=True)
+	return subprocess.check_output(["./bashs/speech_rec.sh "], shell=True)
 
 def roboy_face_in_field():
 	return subprocess.check_output(["./bashs/contains_face.sh "], shell=True)
