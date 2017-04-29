@@ -1,77 +1,67 @@
-import logging
-from logs import log
-import subprocess
-import json
-import threading
-import time
-import flaskapp
+#!/usr/bin/env python
 
-def roboy_say(text):
-	log.info("ROBOYSAY: " + text)
-	return
-	return subprocess.check_output(["./bashs/speech_syn.sh " + text], shell=True)
+from roboy_comm.srv import *
+import sys
+import rospy
+import pdb
 
-def roboy_emote(emote):
-	return subprocess.check_output(["./bashs/emote.sh " + emote], shell=True)
 
-def roboy_receive_speech():
-	return subprocess.check_output(["./bashs/speech_rec.sh "], shell=True)
+#import subprocess
+#example: out_string = subprocess.check_output(["python ./roboy_interface.py face_detection"], shell=True) 
+#example: out_string = subprocess.check_output(["python ./roboy_interface.py speech_synthesis 'Hello World'"], shell=True) 
 
-def roboy_face_in_field():
-	return subprocess.check_output(["./bashs/contains_face.sh "], shell=True)
+def speech_synthesis(text):
+	rospy.wait_for_service("speech_synthesis/talk")
+	#print("found service")
+	#pdb.set_trace()
+	try:
+		stt = rospy.ServiceProxy('speech_synthesis/talk', Talk)
+		resp = stt(text)
+		print "done"
+	except rospy.ServiceException, e:
+		print "Service call failed: %s"%e
 
-def roboy_rec_closest_face():
-	return subprocess.check_output(["./bashs/rec_face.sh " + text], shell=True)
+def speech_recognition():
+    rospy.wait_for_service("TextSpoken")
+    try:
+        stt = rospy.ServiceProxy('TextSpoken', TextSpoken)
+        resp = stt()
+        print resp.text
+    except rospy.ServiceException, e:
+        print "Service call failed: %s"%e
 
-def test():
-	return subprocess.check_output(["./bashs/test.sh "], shell=True)
+def face_detection():
+    rospy.wait_for_service("detect_face")
+    try:
+        stt = rospy.ServiceProxy('detect_face', wakeup)
+        resp = stt()
+        print resp
+    except rospy.ServiceException, e:
+        print "Service call failed: %s"%e
 
-def check_face():
-	face_in = False
-	while True:
-		nface_in = "True" in roboy_face_in_field()
-		if nface_in != face_in:
-			flaskapp.process_updates([flaskapp.make_rupdate("fo5cus", {"val":nface_in})])
-		face_in = nface_in
-		time.sleep(1)
+def show_emotion(emotion):
+    rospy.wait_for_service("roboy_face/show_emotion")
+    try:
+        stt = rospy.ServiceProxy('roboy_face/show_emotion', ShowEmotion)
+        resp = stt(emotion)
+        print "done"
+    except rospy.ServiceException, e:
+        print "Service call failed: %s"%e
 
-def main():
-	t = threading.Thread(target=check_face)
-	t.start()
-	pass
+if __name__ == "__main__":
+	operation = sys.argv[1];
 
-"""
-roboy_con = Roboy_Connector()
+	if operation=="speech_synthesis":
+		text = sys.argv[2];
+		speech_synthesis(text)
 
-#Main Loop/Listener?
+	elif operation=="speech_recognition":
+		speech_recognition()
 
-json_data = 1 #receive Json Object
-output = ""
+	elif operation=="face_detection":
+		face_detection()
 
-operation = json_data["operation"]
-action = json_data["action"]
-
-if operation=="talk":
-	roboy_con.roboy_says(action)
-
-elif operation=="emote":
-	roboy_con.roboy_emote(action)
-
-elif operation=="speech_recognition"
-	output = roboy_con.roboy_receive_speech()
-
-elif operation=="contains_face"
-	output = roboy_con.roboy_face_in_field()
-
-elif operation=="closest_face":
-	output = roboy_con.roboy_rec_closest_face()
-
-elif operation=="test":
-	output = roboy_con.test()
-
-json_prelim = {"output": output}
-
-json_data = json.dumps(data)
-
-#send data
-"""
+	elif operation=="show_emotion":
+		emotion = sys.argv[2];
+		show_emotion(emotion)
+		
