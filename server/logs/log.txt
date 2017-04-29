@@ -1,6 +1,0 @@
-2017-04-29 18:33:59,824 : ROBOYSAY: I used to be an adventurer like you.
-2017-04-29 18:33:59,829 : UPDATE: focus:{"val": true}
-2017-04-29 18:34:15,763 : ROBOYSAY: Greetings!
-2017-04-29 18:34:30,748 : ROBOYSAY: You can't fool me! You didn't put the ball!
-2017-04-29 18:34:44,436 : UPDATE: ball:{"x": 5, "y": 5, "z": 5}
-2017-04-29 18:34:52,507 : ROBOYSAY: You are amazing!

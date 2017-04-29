@@ -11,4 +11,5 @@ def make_update(utype, data):
     return {"type":utype, "data":data}
 
 if __name__ == '__main__':
+    send_updates([make_update("focus", {"val":True})])
     send_updates([make_update("ball", {"x":5, "y":5, "z":5})])
