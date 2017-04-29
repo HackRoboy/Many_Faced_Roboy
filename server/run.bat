@@ -1,0 +1,1 @@
+%LOCALAPPDATA%\\programs\\python\\Python36-32\\python run.py
