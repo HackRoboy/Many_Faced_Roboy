@@ -49,10 +49,19 @@ def show_emotion(emotion):
 	except rospy.ServiceException, e:
 		print "Service call failed: %s"%e
 
-def move(movement_value):
-	rospy.wait_for_service("/roboy_move/replay")
+def recorded_move(movement_value):
+	rospy.wait_for_service("roboy_move/replay")
 	try:
-		stt = rospy.ServiceProxy('/roboy_move/replay', Movement)
+		stt = rospy.ServiceProxy('roboy_move/replay', Movement)
+		resp = stt("value: " + movement_value)
+		print "done"
+	except rospy.ServiceException, e:
+		print "Service call failed: %s"%e
+
+def head_move(movement_value):
+	rospy.wait_for_service("roboy_move/yaw")
+	try:
+		stt = rospy.ServiceProxy('roboy_move/yaw', Movement)
 		resp = stt("value: " + movement_value)
 		print "done"
 	except rospy.ServiceException, e:
@@ -76,7 +85,11 @@ if __name__ == "__main__":
 		emotion = sys.argv[2]
 		show_emotion(emotion)
 
-	elif operation=="move":
+	elif operation=="head_move":
 		move_val = sys.argv[2]
-		move(move_val)
+		head_move(move_val)
+
+	elif operation=="recorded_move":
+		move_val = sys.argv[2]
+		recorded_move(move_val)
 		
