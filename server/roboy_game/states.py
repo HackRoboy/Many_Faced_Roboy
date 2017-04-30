@@ -2,8 +2,9 @@ from typing import List, Tuple
 from game import *
 from roboy_interface import roboy_say
 import random
+import gpsquest
 
-GS = enum("greet", "putball", "getball", "notask")
+GS = enum("greet", "putball", "getball", "notask", "gpsresult")
 
 done_missions = ""
 ongoing_mission = " "
@@ -35,6 +36,12 @@ class GreetState(State):
 		
 	def on_init(self, game:Game, player:int):
 		set_ongoing_mission("Introduce yourself to the stranger")
+		def cback():
+			self.on_gps(game, player)
+		#48.270156, 11.665524
+		#coors = (48.268717, 11.665057)
+		#gpsquest.set_quest(gpsquest.convertdec(coors[0]), gpsquest.convertdec(coors[1]), cback, 0.01)
+		gpsquest.set_quest(4816.09948, 1139.90528, cback, 0.1)
 	
 	def on_leave(self, game:Game, player:int):
 		set_mission_done()
@@ -56,6 +63,9 @@ class GreetState(State):
 		
 		roboy_say("Be respectful adventurer!")
 		game.set_player_state(player, GS.putball)
+	
+	def on_gps(self, game:Game, player:int):
+		game.set_player_state(player, GS.gpsresult)
 
 class PutBallState(State):
 	def __init__(self):
@@ -104,4 +114,17 @@ class NoTasksState(State):
 	def get_view(self, game:Game, player:int):
 		pass
 
-g_state_handlers = [GreetState(), PutBallState(), GetBallState(), NoTasksState()]
+class GpsResultState(State):
+	def __init__(self):
+		pass
+		
+	def on_init(self, game:Game, player:int):
+		pass
+	
+	def get_view(self, game:Game, player:int):
+		return View("You found the secret!!!", [[("done", "I did it!")]])
+	
+	def on_done(self, game:Game, player:int):
+		game.set_player_state(player, GS.greet)
+
+g_state_handlers = [GreetState(), PutBallState(), GetBallState(), NoTasksState(), GpsResultState()]
