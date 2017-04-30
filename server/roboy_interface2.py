@@ -49,6 +49,16 @@ def show_emotion(emotion):
 	except rospy.ServiceException, e:
 		print "Service call failed: %s"%e
 
+def move(movement_value):
+	rospy.wait_for_service("/roboy_move/replay")
+	try:
+		stt = rospy.ServiceProxy('/roboy_move/replay', Movement)
+		resp = stt("value: " + movement_value)
+		print "done"
+	except rospy.ServiceException, e:
+		print "Service call failed: %s"%e
+
+
 if __name__ == "__main__":
 	operation = sys.argv[1];
 
@@ -63,6 +73,10 @@ if __name__ == "__main__":
 		face_detection()
 
 	elif operation=="show_emotion":
-		emotion = sys.argv[2];
+		emotion = sys.argv[2]
 		show_emotion(emotion)
+
+	elif operation=="move":
+		move_val = sys.argv[2]
+		move(move_val)
 		
