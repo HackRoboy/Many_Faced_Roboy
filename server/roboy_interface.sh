@@ -17,7 +17,7 @@ if [ $# -eq 2 ]
 	#echo "python roboy_interface.py $1 $2"
     $PYTHONEXE roboy_interface2.py $1 "$2"
   else
-	echo "python roboy_interface.py $1"
+	#echo "python roboy_interface.py $1"
     $PYTHONEXE roboy_interface2.py $1
 fi
 

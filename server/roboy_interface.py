@@ -5,10 +5,20 @@ import threading, sys
 import flaskapp
 
 def roboy_say(text:str):
+    #text = "A. " + text 
     log.info("ROBOYSAY: " + text)
     #text = text.replace("'", "\\'")
     out_string = subprocess.check_output(["./roboy_interface.sh", "speech_synthesis", text]).decode("ascii")
     print(out_string)
+
+def roboy_detect_speech():
+    log.info("ROBOYLISTENING")
+    #text = text.replace("'", "\\'")
+    out_string = subprocess.check_output(["./roboy_interface.sh speech_recognition"], shell=True).decode("ascii")
+    print(out_string, file=sys.stderr)
+    if "Service call failed" in out_string:
+        return None
+    return out_string
 
 def roboy_detect_face():
     #print("Checking Face")

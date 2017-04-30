@@ -1,8 +1,9 @@
 from typing import List, Tuple
 from game import *
-from roboy_interface import roboy_say
+import roboy_interface
 import random
 import gpsquest
+import speak
 
 GS = enum("greet", "putball", "getball", "notask", "gpsresult")
 
@@ -20,6 +21,7 @@ def get_missions_view():
 	return "*Quests:*\n" + done_missions + "+ " + ongoing_mission + "\n"
 
 def is_focused(game:Game, player:int):
+	return True
 	if game.dm.get_data("focus") is None:
 		return False
 	if not game.dm.get_data("focus")["val"]:
@@ -48,24 +50,29 @@ class GreetState(State):
 	
 	def get_view(self, game:Game, player:int):
 		mv = get_missions_view()
-		return View(mv, [[("greetings", "Greetings!")],[("waddup", "Waddup!")]])
+		return View(mv, [[("speak", "*Speak*")], [("greetings", "Greetings!")],[("waddup", "Waddup!")]])
 	
 	def on_greetings(self, game:Game, player:int):
 		if not is_focused(game, player):
 			return "Face roboy when you speak!"
 		
-		roboy_say("Greetings!")
+		roboy_interface.roboy_say("Greetings!")
 		game.set_player_state(player, GS.putball)
 		
 	def on_waddup(self, game:Game, player:int):
 		if not is_focused(game, player):
 			return "Face roboy when you speak!"
 		
-		roboy_say("Be respectful adventurer!")
+		roboy_interface.roboy_say("Be respectful adventurer!")
 		game.set_player_state(player, GS.putball)
 	
 	def on_gps(self, game:Game, player:int):
 		game.set_player_state(player, GS.gpsresult)
+	
+	def on_speak(self, game:Game, player:int):
+		if not is_focused(game, player):
+			return "Face roboy when you speak!"
+		return speak.on_speak_handler(self, game, player)
 
 class PutBallState(State):
 	def __init__(self):
@@ -79,17 +86,26 @@ class PutBallState(State):
 	
 	def get_view(self, game:Game, player:int):
 		mv = get_missions_view()
-		return View(mv, [[("done", "I did it!")]])
+		return View(mv, [[("speak", "*Speak*")], [("done", "I did it!")],[("cancel", "I don't want to do it.")]])
 	
 	def on_done(self, game:Game, player:int):
 		if not is_focused(game, player):
 			return "Face roboy when you speak!"
 		
 		if game.dm.get_data("ball") != {"x":5,"y":5,"z":5}:
-			roboy_say("You can't fool me! You didn't put the ball!")
+			roboy_interface.roboy_say("You can't fool me! You didn't put the ball!")
 		else:
-			roboy_say("You are amazing!")
+			roboy_interface.roboy_say("You are amazing!")
 			game.set_player_state(player, GS.greet)
+	
+	def on_cancel(self, game:Game, player:int):
+		roboy_interface.roboy_say("Casuals")
+		game.set_player_state(player, GS.greet)
+	
+	def on_speak(self, game:Game, player:int):
+		if not is_focused(game, player):
+			return "Face roboy when you speak!"
+		return speak.on_speak_handler(self, game, player)
 
 class GetBallState(State):
 	def __init__(self):
