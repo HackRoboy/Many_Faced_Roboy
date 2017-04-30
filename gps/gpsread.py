@@ -7,10 +7,14 @@ from cacher import mcache
 from time import sleep
 
 GPIO.setmode(GPIO.BOARD)
+gpio_buzzer = 7
 gpio_light = 16
 gpio_button = 18
 GPIO.setup(gpio_light, GPIO.OUT)
+GPIO.setup(gpio_buzzer, GPIO.OUT)
+pwm_buzzer = GPIO.PWM(gpio_buzzer, 0.5)
 GPIO.setup(gpio_button, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+
 
 gps_data = {}
 
@@ -125,7 +129,7 @@ def check_quest():
     while True:
         cur_quest = mcache.gpsquest
         cur_autoinrange = mcache.autoinrange
-        if cur_quest["id"] < 0:
+        if cur_quest is not None and cur_quest["id"] < 0:
             lid = 0
         if cur_quest is None or cur_quest["id"] < lid:
             turn_off_light()
@@ -157,10 +161,282 @@ def main():
     t2.start()
     t3 = threading.Thread(target=check_button)
     t3.start()
+    while True:
+        music()
+
+
+
+def tone(freq, duration):
+    pwm_buzzer.ChangeFrequency(freq)
+    pwm_buzzer.start(0.5)
+    time.sleep(duration)
+    pwm_buzzer.stop()
+
+def delay(duration):
+    time.sleep(duration)
+
+def music():
+	C0 = 16.35
+	Db0 = 17.32
+	D0 = 18.35
+	Eb0 = 19.45
+	E0 = 20.60
+	F0 = 21.83
+	Gb0 = 23.12
+	G0 = 24.50
+	Ab0 = 25.96
+	LA0 = 27.50
+	Bb0 = 29.14
+	B0 = 30.87
+	C1 = 32.70
+	Db1 = 34.65
+	D1 = 36.71
+	Eb1 = 38.89
+	E1 = 41.20
+	F1 = 43.65
+	Gb1 = 46.25
+	G1 = 49.00
+	Ab1 = 51.91
+	LA1 = 55.00
+	Bb1 = 58.27
+	B1 = 61.74
+	C2 = 65.41
+	Db2 = 69.30
+	D2 = 73.42
+	Eb2 = 77.78
+	E2 = 82.41
+	F2 = 87.31
+	Gb2 = 92.50
+	G2 = 98.00
+	Ab2 = 103.83
+	LA2 = 110.00
+	Bb2 = 116.54
+	B2 = 123.47
+	C3 = 130.81
+	Db3 = 138.59
+	D3 = 146.83
+	Eb3 = 155.56
+	E3 = 164.81
+	F3 = 174.61
+	Gb3 = 185.00
+	G3 = 196.00
+	Ab3 = 207.65
+	LA3 = 220.00
+	Bb3 = 233.08
+	B3 = 246.94
+	C4 = 261.63
+	Db4 = 277.18
+	D4 = 293.66
+	Eb4 = 311.13
+	E4 = 329.63
+	F4 = 349.23
+	Gb4 = 369.99
+	G4 = 392.00
+	Ab4 = 415.30
+	LA4 = 440.00
+	Bb4 = 466.16
+	B4 = 493.88
+	C5 = 523.25
+	Db5 = 554.37
+	D5 = 587.33
+	Eb5 = 622.25
+	E5 = 659.26
+	F5 = 698.46
+	Gb5 = 739.99
+	G5 = 783.99
+	Ab5 = 830.61
+	LA5 = 880.00
+	Bb5 = 932.33
+	B5 = 987.77
+	C6 = 1046.50
+	Db6 = 1108.73
+	D6 = 1174.66
+	Eb6 = 1244.51
+	E6 = 1318.51
+	F6 = 1396.91
+	Gb6 = 1479.98
+	G6 = 1567.98
+	Ab6 = 1661.22
+	LA6 = 1760.00
+	Bb6 = 1864.66
+	B6 = 1975.53
+	C7 = 2093.00
+	Db7 = 2217.46
+	D7 = 2349.32
+	Eb7 = 2489.02
+	E7 = 2637.02
+	F7 = 2793.83
+	Gb7 = 2959.96
+	G7 = 3135.96
+	Ab7 = 3322.44
+	LA7 = 3520.01
+	Bb7 = 3729.31
+	B7 = 3951.07
+	C8 = 4186.01
+	Db8 = 4434.92
+	D8 = 4698.64
+	Eb8 = 4978.03
+	# DURATION OF THE NOTES 
+	BPM = 240.0    #  you can change this value changing all the others
+	Q = 60/BPM #quarter 1/4 
+	H = 2*Q #half 2/4
+	E = Q/2   #eighth 1/8
+	S = Q/4 # sixteenth 1/16
+	W = 4*Q # whole 4/4
+	#tone(pin, note, duration)
+	tone(LA3,Q); 
+	delay(0.001+Q); #delay duration should always be 1 ms more than the note in order to separate them.
+	tone(LA3,Q);
+	delay(0.001+Q);
+	tone(LA3,Q);
+	delay(0.001+Q);
+	tone(F3,E+S);
+	delay(0.001+E+S);
+	tone(C4,S);
+	delay(0.001+S);
+
+	tone(LA3,Q);
+	delay(0.001+Q);
+	tone(F3,E+S);
+	delay(0.001+E+S);
+	tone(C4,S);
+	delay(0.001+S);
+	tone(LA3,H);
+	delay(0.001+H);
+
+	tone(E4,Q); 
+	delay(0.001+Q); 
+	tone(E4,Q);
+	delay(0.001+Q);
+	tone(E4,Q);
+	delay(0.001+Q);
+	tone(F4,E+S);
+	delay(0.001+E+S);
+	tone(C4,S);
+	delay(0.001+S);
+
+	tone(Ab3,Q);
+	delay(0.001+Q);
+	tone(F3,E+S);
+	delay(0.001+E+S);
+	tone(C4,S);
+	delay(0.001+S);
+	tone(LA3,H);
+	delay(0.001+H);
+
+	tone(LA4,Q);
+	delay(0.001+Q);
+	tone(LA3,E+S);
+	delay(0.001+E+S);
+	tone(LA3,S);
+	delay(0.001+S);
+	tone(LA4,Q);
+	delay(0.001+Q);
+	tone(Ab4,E+S);
+	delay(0.001+E+S);
+	tone(G4,S);
+	delay(0.001+S);
+
+	tone(Gb4,S);
+	delay(0.001+S);
+	tone(E4,S);
+	delay(0.001+S);
+	tone(F4,E);
+	delay(0.001+E);
+	delay(0.001+E);#PAUSE
+	tone(Bb3,E);
+	delay(0.001+E);
+	tone(Eb4,Q);
+	delay(0.001+Q);
+	tone(D4,E+S);
+	delay(0.001+E+S);
+	tone(Db4,S);
+	delay(0.001+S);
+
+	tone(C4,S);
+	delay(0.001+S);
+	tone(B3,S);
+	delay(0.001+S);
+	tone(C4,E);
+	delay(0.001+E);
+	delay(0.001+E);#PAUSE QUASI FINE RIGA
+	tone(F3,E);
+	delay(0.001+E);
+	tone(Ab3,Q);
+	delay(0.001+Q);
+	tone(F3,E+S);
+	delay(0.001+E+S);
+	tone(LA3,S);
+	delay(0.001+S);
+
+	tone(C4,Q);
+	delay(0.001+Q);
+	tone(LA3,E+S);
+	delay(0.001+E+S);
+	tone(C4,S);
+	delay(0.001+S);
+	tone(E4,H);
+	delay(0.001+H);
+
+	tone(LA4,Q);
+	delay(0.001+Q);
+	tone(LA3,E+S);
+	delay(0.001+E+S);
+	tone(LA3,S);
+	delay(0.001+S);
+	tone(LA4,Q);
+	delay(0.001+Q);
+	tone(Ab4,E+S);
+	delay(0.001+E+S);
+	tone(G4,S);
+	delay(0.001+S);
+
+	tone(Gb4,S);
+	delay(0.001+S);
+	tone(E4,S);
+	delay(0.001+S);
+	tone(F4,E);
+	delay(0.001+E);
+	delay(0.001+E);#PAUSE
+	tone(Bb3,E);
+	delay(0.001+E);
+	tone(Eb4,Q);
+	delay(0.001+Q);
+	tone(D4,E+S);
+	delay(0.001+E+S);
+	tone(Db4,S);
+	delay(0.001+S);
+
+	tone(C4,S);
+	delay(0.001+S);
+	tone(B3,S);
+	delay(0.001+S);
+	tone(C4,E);
+	delay(0.001+E);
+	delay(0.001+E);#PAUSE QUASI FINE RIGA
+	tone(F3,E);
+	delay(0.001+E);
+	tone(Ab3,Q);
+	delay(0.001+Q);
+	tone(F3,E+S);
+	delay(0.001+E+S);
+	tone(C4,S);
+	delay(0.001+S);
+
+	tone(LA3,Q);
+	delay(0.001+Q);
+	tone(F3,E+S);
+	delay(0.001+E+S);
+	tone(C4,S);
+	delay(0.001+S);
+	tone(LA3,H);
+	delay(0.001+H);
+
+	delay(2*H);
+
 
 if __name__ == '__main__':
     main()
-
 
 """
 GGA          Global Positioning System Fix Data
