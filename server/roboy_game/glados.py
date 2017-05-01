@@ -7,6 +7,8 @@ import speak
 import roboy_game as states
 from cacher import mcache
 
+mcache.buzzergo = False
+
 class GreetState(State):
 	def __init__(self):
 		pass
@@ -70,7 +72,7 @@ class ChallengeState(State):
 		game.set_player_state(player, states.GS.glados_quest)
 		game.update_single(player)
 		pname = game.player_info[player].first_name
-		diag = "Please escort the companion pi to the local research faciity."
+		diag = "Please escort the companion pi to the local research facility."
 		roboy_interface.roboy_say(diag)
 	
 	def on_speak(self, game:Game, player:int):

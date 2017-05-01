@@ -49,7 +49,7 @@ class GreetState(State):
 		
 		game.set_player_state(player, states.GS.navi_quest)
 		pname = game.player_info[player].first_name
-		diag = "Hey listen! Hold the controller in the air and jump!"
+		diag = "Hey listen! Hold the sword in the air and jump!"
 		roboy_interface.roboy_say(diag)
 
 class QuestState(State):
@@ -57,7 +57,7 @@ class QuestState(State):
 		pass
 		
 	def on_init(self, game:Game, player:int):
-		states.set_ongoing_mission("Hold the controller in the air and jump!")
+		states.set_ongoing_mission("Hold the sword in the air and jump!")
 	
 	def on_leave(self, game:Game, player:int):
 		states.set_mission_done()
