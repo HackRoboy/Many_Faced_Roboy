@@ -1,0 +1,9 @@
+2017-05-01 11:57:37,350 : ROBOYEMOTION
+2017-05-01 11:57:40,546 : ROBOYLISTENING
+2017-05-01 11:57:51,953 : ROBOYSAY: You approach as if you know Khajiit. Who are you and what do you want?
+2017-05-01 11:57:59,443 : ROBOYSAY: Khajiit has wares if you have coin.
+2017-05-01 11:58:02,478 : ROBOYSAY: These sands are cold, but Khajiit feels warm from your presence.
+2017-05-01 11:58:07,380 : ROBOYSAY: Ah, I see my friend. I used to be an adventurer like you.
+2017-05-01 11:58:12,787 : ROBOYLISTENING
+2017-05-01 11:58:16,827 : ROBOYEMOTION
+2017-05-01 11:58:17,256 : ROBOYSAY: May the sun keep you warm even in this land of bitter cold.

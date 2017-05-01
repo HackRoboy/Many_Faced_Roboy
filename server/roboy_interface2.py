@@ -23,6 +23,8 @@ def speech_synthesis(text):
 		print "Service call failed: %s"%e
 
 def speech_recognition():
+	#print("asdf")
+	#return
 	rospy.wait_for_service("TextSpoken")
 	try:
 		stt = rospy.ServiceProxy('TextSpoken', TextSpoken)
