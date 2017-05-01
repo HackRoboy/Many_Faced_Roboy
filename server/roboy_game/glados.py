@@ -32,7 +32,7 @@ class GreetState(State):
 		
 		game.set_player_state(player, states.GS.glados_challenge)
 		pname = game.player_info[player].first_name
-		diag = "Subject number {pname}. Setting up test environment. Please stand by.".format(pname = pname)
+		diag = "Subject number {pname}. Setting up test environment. Please stand by.".format(pname = abs(player))
 		roboy_interface.roboy_say(diag)
 	
 	def on_speak(self, game:Game, player:int):
@@ -61,7 +61,7 @@ class ChallengeState(State):
 		
 		game.set_player_state(player, states.GS.glados_challenge)
 		pname = game.player_info[player].first_name
-		diag = "Subject number {pname}. Please commence testing.".format(pname = pname)
+		diag = "Subject number {pname}. Please commence testing.".format(pname = abs(player))
 		roboy_interface.roboy_say(diag)
 	
 	def on_opt_yes(self, game:Game, player:int):

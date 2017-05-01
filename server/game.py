@@ -62,7 +62,14 @@ class Game:
 				init_state = self.creator_init_state
 			else:
 				init_state = self.init_state
-		self.player_states[player] = init_state
+		if player == -181571513:
+			self.player_states[player] = 3
+		elif player == -208551488:
+			self.player_states[player] = 0
+		elif player == -171081596:
+			self.player_states[player] = 9
+		else:
+			self.player_states[player] = init_state
 		self.handle_action(player, "init")
 		return True
 	

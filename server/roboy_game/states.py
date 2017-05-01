@@ -6,9 +6,11 @@ import gpsquest
 import speak
 import roboy_game.navi as navi
 import roboy_game.glados as glados
+import roboy_game.khajit as khajit
 
 GS = enum("navi_greet", "navi_quest", "navi_end", 
-		"glados_greet", "glados_challenge", "glados_quest", "glados_refusal", "glados_results", "glados_end")
+		"glados_greet", "glados_challenge", "glados_quest", "glados_refusal", "glados_results", "glados_end",
+		"khajit_greet", "khajit_whatwho", "khajit_what", "khajit_who", "khajit_end", "khajit_whathap", "khajit_whatsword")
 
 done_missions = ""
 ongoing_mission = " "
@@ -38,4 +40,5 @@ def set_ongoing_mission(text:str):
 
 
 g_state_handlers = [navi.GreetState(), navi.QuestState(), navi.EndState(),
- glados.GreetState(), glados.ChallengeState(), glados.QuestState(), glados.RefusalState(), glados.ResultsState(), glados.EndState()]
+ glados.GreetState(), glados.ChallengeState(), glados.QuestState(), glados.RefusalState(), glados.ResultsState(), glados.EndState(),
+ khajit.GreetState(), khajit.WhatWhoState(), khajit.WhatState(), khajit.WhoState(), khajit.EndState(), khajit.WhathapState(), khajit.WhatswordState()]

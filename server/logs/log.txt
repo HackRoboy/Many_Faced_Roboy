@@ -1,6 +1,0 @@
-2017-05-01 09:49:29,280 : ROBOYSAY: Subject number Altan. Setting up test environment. Please stand by.
-2017-05-01 09:49:35,814 : ROBOYSAY: Please escort the companion pi to the local research facility.
-2017-05-01 09:50:54,916 : ROBOYSAY: Do not try to lie. the companion pi has not reached its destination.
-2017-05-01 09:52:53,934 : ROBOYSAY: Companion Pi position received. Please receive your results.
-2017-05-01 09:53:08,986 : ROBOYSAY: Congratulations for the slowest team in eternity award.
-2017-05-01 09:53:14,154 : ROBOYSAY: The cake is a lie. However, I got this just for you. Releasing deadly neurotoxin.
