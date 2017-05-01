@@ -30,7 +30,7 @@ class GreetState(State):
 		
 		game.set_player_state(player, states.GS.glados_challenge)
 		pname = game.player_info[player].first_name
-		diag = "Are you ready for a challenge!"
+		diag = "Subject number {pname}. Setting up test environment. Please stand by.".format(pname = pname)
 		roboy_interface.roboy_say(diag)
 	
 	def on_speak(self, game:Game, player:int):
@@ -51,15 +51,15 @@ class ChallengeState(State):
 	
 	def get_view(self, game:Game, player:int):
 		mv = states.get_missions_view()
-		return View(mv, [[("speak", "*Speak*")],[("opt_yes","Yes")],[("opt_no","What kind of a challenge?")]])
+		return View(mv, [[("speak", "*Speak*")],[("opt_yes","I am ready")],[("opt_no","What test?")]])
 	
 	def on_opt_no(self, game:Game, player:int):
 		if not states.is_focused(game, player):
 			return "Face roboy when you speak!"
 		
-		game.set_player_state(player, states.GS.glados_refusal)
+		game.set_player_state(player, states.GS.glados_challenge)
 		pname = game.player_info[player].first_name
-		diag = "Are you ready for a challenge!"
+		diag = "Subject number {pname}. Please commence testing.".format(pname = pname)
 		roboy_interface.roboy_say(diag)
 	
 	def on_opt_yes(self, game:Game, player:int):
@@ -70,7 +70,7 @@ class ChallengeState(State):
 		game.set_player_state(player, states.GS.glados_quest)
 		game.update_single(player)
 		pname = game.player_info[player].first_name
-		diag = "Are you ready for a challenge!"
+		diag = "Please escort the companion pi to the local research faciity."
 		roboy_interface.roboy_say(diag)
 	
 	def on_speak(self, game:Game, player:int):
@@ -91,7 +91,7 @@ class RefusalState(State):
 	
 	def get_view(self, game:Game, player:int):
 		mv = states.get_missions_view()
-		return View(mv, [[("speak", "*Speak*")],[("opt_fun1", "Funny 1")],[("opt_fun2", "Funny 2")]])
+		return View(mv, [[("speak", "*Speak*")],[("opt_fun1", "Please Repeat")],[("opt_fun2", "No thank you")]])
 	
 	def on_opt_fun1(self, game:Game, player:int):
 		if not states.is_focused(game, player):
@@ -99,16 +99,16 @@ class RefusalState(State):
 		
 		game.set_player_state(player, states.GS.glados_challenge)
 		pname = game.player_info[player].first_name
-		diag = "Are you ready for a challenge!"
+		diag = "It seems the subject is deaf. I've had that before. Let me reapeat it for you."
 		roboy_interface.roboy_say(diag)
 	
 	def on_opt_fun2(self, game:Game, player:int):
 		if not states.is_focused(game, player):
 			return "Face roboy when you speak!"
 		
-		game.set_player_state(player, states.GS.glados_challenge)
+		game.set_player_state(player, states.GS.glados_quest)
 		pname = game.player_info[player].first_name
-		diag = "Are you ready for a challenge!"
+		diag = "The please commence testing. There will be cake."
 		roboy_interface.roboy_say(diag)
 	
 	def on_speak(self, game:Game, player:int):
@@ -139,7 +139,7 @@ class QuestState(State):
 		if not gpsdone:
 			return View(mv, [[("speak", "*Speak*")],[("opt_isdone", "I'm done.")],[("opt_refusedo", "I don't wanna do it.*")]])
 		else:
-			return View(mv, [[("speak", "*Speak*")],[("opt_isdone", "I'm done.")]])
+			return View(mv, [[("speak", "*Speak*")],[("opt_isdone", "Receive Results.")]])
 	
 	def on_opt_isdone(self, game:Game, player:int):
 		if not states.is_focused(game, player):
@@ -147,12 +147,12 @@ class QuestState(State):
 		gpsdone = self.get_priv_data(game, player, "ball_done")
 		if not gpsdone:
 			pname = game.player_info[player].first_name
-			diag = "Are you ready for a challenge!"
+			diag = "Do not try to lie. the companion pi has not reached its destination."
 			roboy_interface.roboy_say(diag)
 		else:
 			game.set_player_state(player, states.GS.glados_results)
 			pname = game.player_info[player].first_name
-			diag = "Are you ready for a challenge!"
+			diag = "Congratulations for the slowest team in eternity award."
 			roboy_interface.roboy_say(diag)
 	
 	def on_opt_refusedo(self, game:Game, player:int):
@@ -166,7 +166,7 @@ class QuestState(State):
 	
 	def on_gps(self, game:Game, player:int):
 		pname = game.player_info[player].first_name
-		diag = "Are you ready for a challenge!"
+		diag = "Companion Pi position received. Please receive your results."
 		roboy_interface.roboy_say(diag)
 		self.set_priv_data(game, player, "ball_done", True)
 		states.set_mission_done()
@@ -191,7 +191,7 @@ class ResultsState(State):
 	
 	def get_view(self, game:Game, player:int):
 		mv = states.get_missions_view()
-		return View(mv, [[("speak", "*Speak*")],[("opt_fun1", "Fun 1")],[("opt_fun2", "Fun 2")]])
+		return View(mv, [[("speak", "*Speak*")],[("opt_fun1", "Where is the Cake?")],[("opt_fun2", "Anything else?")]])
 	
 	def on_opt_fun1(self, game:Game, player:int):
 		if not states.is_focused(game, player):
@@ -199,7 +199,7 @@ class ResultsState(State):
 		
 		game.set_player_state(player, states.GS.glados_end)
 		pname = game.player_info[player].first_name
-		diag = "Are you ready for a challenge!"
+		diag = "The cake is a lie. However, I got this just for you. Releasing deadly neurotoxin."
 		roboy_interface.roboy_say(diag)
 	
 	def on_opt_fun2(self, game:Game, player:int):
@@ -208,7 +208,7 @@ class ResultsState(State):
 		
 		game.set_player_state(player, states.GS.glados_end)
 		pname = game.player_info[player].first_name
-		diag = "Are you ready for a challenge!"
+		diag = "I have a nice gift just for you. Releasing deadly neurotoxin."
 		roboy_interface.roboy_say(diag)
 	
 	def on_speak(self, game:Game, player:int):

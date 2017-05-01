@@ -8,6 +8,7 @@ global prevent_repeat
 
 def callback(data):
 	fun = data.pose.pose.position;
+	print(fun.x, fun.y, fun.z)
 	if quest=="jump":
 		if fun.y>0: #to change
 			#notify server
