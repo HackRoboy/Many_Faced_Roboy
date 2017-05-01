@@ -38,13 +38,13 @@ class GreetState(State):
 		pass
 		
 	def on_init(self, game:Game, player:int):
-		set_ongoing_mission("Take the ball to the mountains")
+		states.set_ongoing_mission("Take the ball to the mountains")
 	
 	def on_leave(self, game:Game, player:int):
 		states.set_mission_done()
 	
 	def get_view(self, game:Game, player:int):
-		mv = get_missions_view()
+		mv = states.get_missions_view()
 		return View(mv, [[("speak", "*Speak*")]])
 	
 	def on_speak(self, game:Game, player:int):

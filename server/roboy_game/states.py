@@ -5,6 +5,7 @@ import random
 import gpsquest
 import speak
 import roboy_game.navi as navi
+import roboy_game.glados as glados
 
 GS = enum("navi_greet", "navi_quest", "navi_end", 
 		"glados_greet", "glados_challenge", "glados_quest", "glados_refusal", "glados_results", "glados_end")
@@ -23,7 +24,7 @@ def get_missions_view():
 	return "*Quests:*\n" + done_missions + "+ " + ongoing_mission + "\n"
 
 def is_focused(game:Game, player:int):
-	#return True
+	return True
 	if game.dm.get_data("focus") is None:
 		return False
 	if not game.dm.get_data("focus")["val"]:
@@ -36,4 +37,5 @@ def set_ongoing_mission(text:str):
 
 
 
-g_state_handlers = [navi.GreetState(), navi.QuestState(), navi.EndState()]
+g_state_handlers = [navi.GreetState(), navi.QuestState(), navi.EndState(),
+ glados.GreetState(), glados.ChallengeState(), glados.QuestState(), glados.RefusalState(), glados.ResultsState(), glados.EndState()]

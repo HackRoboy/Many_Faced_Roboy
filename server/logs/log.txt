@@ -1,5 +1,6 @@
-2017-04-30 22:37:47,937 : ROBOYSAY: Hey listen! Hold the controller in the air and jump!
-2017-04-30 22:37:51,905 : ROBOYSAY: I used to be an adventurer like you.
-2017-04-30 22:37:54,928 : UPDATE: focus:{"val": true}
-2017-04-30 22:37:54,943 : UPDATE: ball:{"z": 5, "y": 5, "x": 5}
-2017-04-30 22:37:55,981 : ROBOYSAY: Hey you! Hey! Thank you!
+2017-05-01 08:35:50,794 : ROBOYSAY: Are you ready for a challenge!
+2017-05-01 08:35:53,669 : ROBOYSAY: Are you ready for a challenge!
+2017-05-01 08:35:56,511 : ROBOYSAY: Are you ready for a challenge!
+2017-05-01 08:38:12,257 : ROBOYSAY: Are you ready for a challenge!
+2017-05-01 08:38:17,558 : ROBOYSAY: Are you ready for a challenge!
+2017-05-01 08:38:21,084 : ROBOYSAY: Are you ready for a challenge!
